@@ -23,20 +23,37 @@ cmp.setup({
         ['<C-j>'] = cmp.mapping.select_next_item(),
         -- Use <CR>(Enter) to confirm selection
         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
 
-        -- A super tab
-        -- sourc: https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+         -- 修改这里：将 CR 映射改为仅选择而不确认
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
+
+         -- 修改这里：使用 Tab 来选择和确认
         ["<Tab>"] = cmp.mapping(function(fallback)
-            -- Hint: if the completion menu is visible select next one
             if cmp.visible() then
-                cmp.select_next_item()
+                cmp.confirm({ select = true })
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
             else
                 fallback()
             end
-        end, { "i", "s" }), -- i - insert mode; s - select mode
+        end, { "i", "s" }),
+
+        -- A super tab
+        -- sourc: https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+        -- ["<Tab>"] = cmp.mapping(function(fallback)
+            -- Hint: if the completion menu is visible select next one
+            -- if cmp.visible() then
+                -- cmp.select_next_item()
+            -- elseif has_words_before() then
+                -- cmp.complete()
+            -- else
+                -- fallback()
+            -- end
+        -- end, { "i", "s" }), -- i - insert mode; s - select mode
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()

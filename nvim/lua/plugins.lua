@@ -15,6 +15,23 @@ require("lazy").setup({
     -- 主题
     "tanvirtin/monokai.nvim",
 
+    -- 代码片段snippet 
+    -- 安装LuaSnip
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        config = function()
+            -- 安装Vscode-like snippet
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+    },
+
+    
+
     -- 新添加的 nvim-tree 配置
     {
         "nvim-tree/nvim-tree.lua",
@@ -48,14 +65,15 @@ require("lazy").setup({
 			"hrsh7th/cmp-buffer", -- buffer auto-completion
 			"hrsh7th/cmp-path", -- path auto-completion
 			"hrsh7th/cmp-cmdline", -- cmdline auto-completion
+            "saadparwaiz1/cmp_luasnip", --自动补全代码snippet
 		},
 		config = function()
 			require("config.nvim-cmp")
 		end,
 	},
 	-- Code snippet engine
-	{
-		"L3MON4D3/LuaSnip",
-		version = "v2.*",
-	},
+	-- {
+		-- "L3MON4D3/LuaSnip",
+		-- version = "v2.*",
+	-- },
 })
