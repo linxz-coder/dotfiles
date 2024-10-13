@@ -15,6 +15,18 @@ require("lazy").setup({
     -- 主题
     "tanvirtin/monokai.nvim",
 
+
+    -- markdown-preview
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreview", "MarkdownPreviewStop" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+        init = function()
+          vim.g.mkdp_filetypes = { "markdown" }
+       end,
+       ft = { "markdown" },
+    },
+
     -- 代码片段snippet 
     -- 安装LuaSnip
     {
@@ -71,9 +83,4 @@ require("lazy").setup({
 			require("config.nvim-cmp")
 		end,
 	},
-	-- Code snippet engine
-	-- {
-		-- "L3MON4D3/LuaSnip",
-		-- version = "v2.*",
-	-- },
 })
