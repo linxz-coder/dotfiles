@@ -39,6 +39,8 @@ require("lazy").setup({
         config = function()
             -- 安装Vscode-like snippet
             require("luasnip.loaders.from_vscode").lazy_load()
+            -- 加载自定义snippets
+            require("snippets.markdown")
         end,
     },
 
